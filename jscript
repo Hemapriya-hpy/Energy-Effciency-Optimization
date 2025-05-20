@@ -1,0 +1,16 @@
+e.preventDefault();
+
+  const usage = document.getElementById('usage').value;
+  const rate = document.getElementById('rate').value;
+
+  const response = await fetch('http://localhost:5000/predict', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ usage: parseFloat(usage), rate: parseFloat(rate) })
+  });
+
+  const data = await response.json();
+  document.getElementById('result').innerHTML = `<h3>Predicted Cost: ₹${data.predicted_cost.toFixed(2)}</h3>`;
+});
